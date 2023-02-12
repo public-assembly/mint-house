@@ -1,23 +1,30 @@
-import React from 'react';
-import Layout from '../components/Layout';
-import { ideas } from "../lib/data";
+import React from "react";
+import Layout from "../components/Layout";
+import { marketData } from "../lib/market";
 import styles from "../styles/styles.module.css";
 import Link from "next/link";
 
 function HomePage() {
   return (
-    <Layout>
-      <div className={styles.header}>
-        <p>Welcome to PA Mint House</p>
-      </div>
-      {ideas.map((idea) => (
-        <div key={idea.name} className={styles.ideas}>
-          <Link href={"".concat(idea.name.replace(/\s/g, "-"))}>
-            {idea.name}
-          </Link>
+    <div className={styles.home}>
+      <Layout />
+      <main className={styles.homeContainer}>
+        <div className={styles.header}>
+          <p>Welcome to PA Mint House</p>
         </div>
-      ))}
-    </Layout>
+        {marketData.nodes.map((collection) => (
+          <div key={collection.token.url} className={styles.ideas}>
+            <Link
+              href={"/collections/".concat(
+                `${collection.token.collectionAddress}`
+              )}
+            >
+              {collection.token.name}
+            </Link>
+          </div>
+        ))}
+      </main>
+    </div>
   );
 }
 export default HomePage;
