@@ -5,8 +5,15 @@
 * {
   font-family: 'Space Mono', sans-serif;
   color: #1E1F22;
+  background: url('/d4cf2180135afc1c26d41857bec3981857c5a9e5_2_1000x1000.png');
+  background-size: 100px 100px;
 }
 
 audio {
   display: block;
+}
+
+.catsandstars {
+  background: url("/46465669d1920448b686a4aabbc1161eafa3bcf9.jpeg");
+  background-color: transparent;
 }
