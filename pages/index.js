@@ -12,7 +12,7 @@ function HomePage() {
       </div>
       {ideas.map((idea) => (
         <div key={idea.name} className={styles.ideas}>
-          <Link href={"".concat(idea.name.replace(/\s/g, ""))}>
+          <Link href={"".concat(idea.name.replace(/\s/g, "-"))}>
             {idea.name}
           </Link>
         </div>
