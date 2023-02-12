@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Footer from '../components/Footer';
 
 function HomePage() {
-  console.log(ideas)
   return (
     <div>
       <NavBar />
