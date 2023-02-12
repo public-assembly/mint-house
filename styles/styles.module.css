@@ -1,5 +1,14 @@
+.home {
+  background: url('/public-ants-red.jpeg');
+  background-size: 1000px 1000px;
+}
+
+.homeContainer {
+  height: 86vh;
+}
+
 .navbar {
-  margin: 20px 10px;
+  margin: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
