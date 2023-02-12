@@ -1,11 +1,11 @@
 .detailsPage {
-  background: url("/public-ants-bw.png");
+  /* background: url("/public-ants-bw.png"); */
   background-size: 1000px 1000px;
   height: 97vh;
 }
 
 .grid > div {
-  background: #e5e6ea;
+  /* background: #e5e6ea; */
   font-size: 32px;
   border-radius: 5px;
   text-align: center;
@@ -13,7 +13,7 @@
 }
 
 .grid > div:nth-child(even) {
-  background: #adb1b8;
+  /* background: #adb1b8; */
 }
 
 .grid {
