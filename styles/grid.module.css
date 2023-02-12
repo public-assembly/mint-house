@@ -1,0 +1,51 @@
+.grid > div {
+  /* padding: 30px; */
+  background: #ADB1B8;
+  text-align: center;
+  font-size: 32px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid > div:nth-child(odd) {
+  background: #E5E6EA;
+}
+
+.audio {
+  padding: 0px;
+} 
+
+.grid {
+  display: grid;
+  grid-auto-rows: minmax(60px, auto);
+  grid-auto-columns: minmax(60px, auto);
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.one {
+  grid-column: 1/10;
+}
+
+.three {
+  grid-column: 2/8;
+  grid-row: 2/7;
+}
+.four {
+  grid-column: 8/10;
+}
+
+.five {
+  grid-row: 3/8;
+}
+
+
+.six {
+  grid-column: 8/10;
+  grid-row: 3/7;
+}
+.seven {
+  grid-column: 2/10;
+  grid-row: 7/8;
+}
