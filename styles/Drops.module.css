@@ -1,0 +1,17 @@
+.dropsPage {
+  height: 97vh;
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropsContainer{
+  height: 400px;
+  width: 400px;
+  background: #e5e6ea;
+  border-radius: 500px;
+  overflow: hidden;
+}

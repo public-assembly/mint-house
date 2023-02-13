@@ -1,5 +1,13 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
 .home {
-  background: url('/public-ants-red.jpeg');
   background-size: 1000px 1000px;
 }
 
@@ -41,7 +49,4 @@
 
 .mintContainer div {
   background-color: #ADB1B8;
-}
-
-.mintContainer audio {
 }

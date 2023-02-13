@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import styles from "../styles/styles.module.css";
+import styles from "@/styles/Home.module.css";
 
 const NavBar = () => {
   return (
@@ -9,7 +9,7 @@ const NavBar = () => {
         <Link href="/">Mint House</Link>
       </div>
       <div>
-        <button>connect</button>
+        <Link href="/">connect</Link>
       </div>
     </div>
   );
