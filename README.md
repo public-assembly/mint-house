@@ -20,4 +20,4 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 To learn more about public assembly, take a look at the following resources:
 
-- [discourse](https://forum.public---assembly.com) - an public forum.
+- [PA Public discourse](https://forum.public---assembly.com) - a public forum.
