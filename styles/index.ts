@@ -1,23 +1,13 @@
 import { extendTheme } from '@chakra-ui/react';
 
-import Card from './components/Card';
-import Heading from './components/Heading';
-import Text from './components/Text';
+import { Button } from './components/Button';
 
 const theme = extendTheme({
   components: {
-    Card,
-    Heading,
-    Text,
-    Button: {
-      baseStyle: {
-        fontFamily: 'IBM Plex Mono',
-        fontWeight: 600,
-      },
-    },
+    Button,
   },
   fonts: {
-    body: `'IBM Plex Mondo', sans-serif`,
+    body: `'IBM Plex Mondo', mono`,
   },
 });
 

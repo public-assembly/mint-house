@@ -3,7 +3,6 @@ import styles from '@/styles/Home.module.css';
 import Layout from '../components/Layout';
 import { marketData } from '../data';
 import Link from 'next/link';
-import { Button } from '@chakra-ui/react';
 
 export default function Home() {
   return (
