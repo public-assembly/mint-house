@@ -1,17 +1,23 @@
-import React from "react";
-import Image from "next/image";
-import styles from "@/styles/Home.module.css";
+import React from 'react';
+import Image from 'next/image';
+import styles from '@/styles/Home.module.css';
+import { HStack } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <div className={styles.footer}>
+    <HStack
+      justifyContent={'center'}
+      alignItems='center'
+      position='absolute'
+      bottom='2rem'
+    >
       <Image
-        src={"/pa-footer-white-logo.svg"}
+        src={'/pa-footer-white-logo.svg'}
         width={50}
         height={50}
-        alt="public assembly logo"
+        alt='public assembly logo'
       />
-    </div>
+    </HStack>
   );
 };
 
