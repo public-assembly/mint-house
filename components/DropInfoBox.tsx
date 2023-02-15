@@ -10,6 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { WalletStatus } from '../components/icons/WalletStatus';
 import React from 'react';
+import { ConnectKitButton } from 'connectkit';
+import { FaEthereum } from 'react-icons/fa';
 
 type Props = {};
 
@@ -28,11 +30,39 @@ const DropInfoBox = (props: Props) => {
           <ListItem>15 minted</ListItem>
           <ListItem>0d 0h 0m 0s</ListItem>
         </List>
-        <HStack justifyContent='center' alignItems='center'>
-          <Button variant='link' mt={['3', '5', '7', '9']}>
-            <Icon as={WalletStatus} color='#D9D9D9' mr='3' />
-            connect to mint
-          </Button>
+        <HStack
+          justifyContent='center'
+          alignItems='center'
+          mt={['3', '5', '7', '9']}
+        >
+          <ConnectKitButton.Custom>
+            {({ isConnected, show, truncatedAddress, ensName }) => {
+              return (
+                <>
+                  <Button variant='link' onClick={show}>
+                    {isConnected ? (
+                      <Text>
+                        <Icon as={FaEthereum} mr='2' />
+                        0.001&nbsp;
+                      </Text>
+                    ) : (
+                      <Icon
+                        as={WalletStatus}
+                        color={isConnected ? 'green' : 'grey'}
+                        mr='2'
+                      />
+                    )}
+
+                    {isConnected ? (
+                      <Button variant='link'>- MINT NOW </Button>
+                    ) : (
+                      'connect to mint'
+                    )}
+                  </Button>
+                </>
+              );
+            }}
+          </ConnectKitButton.Custom>
         </HStack>
       </Box>
     </>
