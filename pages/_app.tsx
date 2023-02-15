@@ -1,8 +1,7 @@
-import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from 'styles';
-import Fonts from '../styles/Fonts';
+import theme from '@/theme';
+import Fonts from '../theme/Fonts';
 import Layout from '@/components/Layout';
 import Head from 'next/head';
 

@@ -18,7 +18,7 @@ const DropInfoBox = (props: Props) => {
     <>
       <Box
         border='1px solid black'
-        p={['4', '7', '10', '15']}
+        p={['4', '6', '10', '14']}
         sx={{ boxShadow: '2px 2px 5px #0000008A' }}
       >
         <List spacing={['0', '2', '3', '4']}>

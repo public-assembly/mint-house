@@ -5,12 +5,7 @@ import { HStack } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <HStack
-      justifyContent={'center'}
-      alignItems='center'
-      position='absolute'
-      bottom='0'
-    >
+    <HStack justifyContent={'center'} alignItems='center' mb='2rem'>
       <Image
         src={'/pa-footer-white-logo.svg'}
         width={50}

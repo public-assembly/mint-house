@@ -10,7 +10,7 @@ const MintPage = () => {
       <Box px='2rem' mb='2rem'>
         <Image
           minH={200}
-          maxH={400}
+          maxH={[400, 500, 650, 1000]}
           width='auto'
           overflow='hidden'
           border='1px solid black'
