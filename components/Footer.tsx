@@ -9,7 +9,7 @@ const Footer = () => {
       justifyContent={'center'}
       alignItems='center'
       position='absolute'
-      bottom='2rem'
+      bottom='0'
     >
       <Image
         src={'/pa-footer-white-logo.svg'}
