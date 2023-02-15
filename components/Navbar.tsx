@@ -1,14 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from '@/styles/Home.module.css';
-import { HStack, Spacer } from '@chakra-ui/react';
+
+import { Button, HStack, Spacer, Icon } from '@chakra-ui/react';
+import { ConnectKitButton } from 'connectkit';
+import { WalletStatus } from './icons/WalletStatus';
 
 const NavBar = () => {
   return (
-    <HStack w='100%' my='2rem'>
-      <Link href='/'>mint house</Link>
+    <HStack w='100%' mb='2rem'>
+      <Button variant='link'>
+        <Link href='/'>mint house</Link>
+      </Button>
       <Spacer />
-      <Link href='/'>connect</Link>
+      <ConnectKitButton.Custom>
+        {({ isConnected, show, truncatedAddress, ensName }) => {
+          return (
+            <Button variant='link' onClick={show}>
+              <Icon
+                as={WalletStatus}
+                color={isConnected ? 'green' : 'grey'}
+                mr='2'
+              />
+              {isConnected ? ensName ?? truncatedAddress : 'connect wallet'}
+            </Button>
+          );
+        }}
+      </ConnectKitButton.Custom>
     </HStack>
   );
 };

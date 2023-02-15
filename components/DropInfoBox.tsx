@@ -1,24 +1,70 @@
-import { Box, Spacer, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  Icon,
+  Spacer,
+  Text,
+  HStack,
+} from '@chakra-ui/react';
+import { WalletStatus } from '../components/icons/WalletStatus';
 import React from 'react';
+import { ConnectKitButton } from 'connectkit';
+import { FaEthereum } from 'react-icons/fa';
 
 type Props = {};
 
 const DropInfoBox = (props: Props) => {
   return (
     <>
-      <Spacer />
       <Box
         border='1px solid black'
-        padding='20'
+        p={['4', '6', '10', '14']}
         sx={{ boxShadow: '2px 2px 5px #0000008A' }}
       >
-        <Text>Felt Zine Drop X</Text>
-        <Text>Creator: 0x15...c170</Text>
-        <Text>0.001 ETH</Text>
-        <Text>15 minted</Text>
-        <Text>0d 0h 0m 0s</Text>
+        <List spacing={['0', '2', '3', '4']}>
+          <ListItem>Felt Zine Drop X</ListItem>
+          <ListItem>Creator: 0x15...c170</ListItem>
+          <ListItem>0.001 ETH</ListItem>
+          <ListItem>15 minted</ListItem>
+          <ListItem>0d 0h 0m 0s</ListItem>
+        </List>
+        <HStack
+          justifyContent='center'
+          alignItems='center'
+          mt={['3', '5', '7', '9']}
+        >
+          <ConnectKitButton.Custom>
+            {({ isConnected, show, truncatedAddress, ensName }) => {
+              return (
+                <>
+                  <Button variant='link' onClick={show}>
+                    {isConnected ? (
+                      <Text>
+                        <Icon as={FaEthereum} mr='2' />
+                        0.001&nbsp;
+                      </Text>
+                    ) : (
+                      <Icon
+                        as={WalletStatus}
+                        color={isConnected ? 'green' : 'grey'}
+                        mr='2'
+                      />
+                    )}
+
+                    {isConnected ? (
+                      <Button variant='link'>- MINT NOW </Button>
+                    ) : (
+                      'connect to mint'
+                    )}
+                  </Button>
+                </>
+              );
+            }}
+          </ConnectKitButton.Custom>
+        </HStack>
       </Box>
-      <Spacer />
     </>
   );
 };

@@ -7,7 +7,7 @@ const theme = extendTheme({
     Button,
   },
   fonts: {
-    body: `'IBM Plex Mondo', mono`,
+    body: `'IBM Plex Mono', mono`,
   },
 });
 
