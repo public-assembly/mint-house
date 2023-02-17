@@ -20,8 +20,9 @@ const DropInfoBox = (props: Props) => {
     <>
       <Box
         border='1px solid black'
-        p={['4', '6', '10', '14']}
-        sx={{ boxShadow: '2px 2px 5px #0000008A' }}
+        p={['2rem !important']}
+        boxShadow='2px 2px 5px #0000008A'
+        mt='3rem'
       >
         <List spacing={['0', '2', '3', '4']}>
           <ListItem>Felt Zine Drop X</ListItem>
@@ -39,7 +40,10 @@ const DropInfoBox = (props: Props) => {
             {({ isConnected, show, truncatedAddress, ensName }) => {
               return (
                 <>
-                  <Button variant='link' onClick={show}>
+                  <Button
+                    variant={isConnected ? 'outline' : 'link'}
+                    onClick={show}
+                  >
                     {isConnected ? (
                       <Text>
                         <Icon as={FaEthereum} mr='2' />
@@ -53,11 +57,7 @@ const DropInfoBox = (props: Props) => {
                       />
                     )}
 
-                    {isConnected ? (
-                      <Button variant='link'>- MINT NOW </Button>
-                    ) : (
-                      'connect to mint'
-                    )}
+                    {isConnected ? '- mint now' : 'connect to mint'}
                   </Button>
                 </>
               );

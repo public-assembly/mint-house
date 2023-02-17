@@ -23,9 +23,9 @@ export const Button = defineStyleConfig({
   // Two variants: outline and solid
   variants: {
     outline: {
-      border: '2px solid',
-      borderColor: 'purple.500',
-      color: 'purple.500',
+      border: '1px solid black',
+      color: 'black',
+      borderRadius: '0',
     },
     solid: {
       bg: 'purple.500',

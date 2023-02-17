@@ -13,7 +13,7 @@ const NavBar = () => {
       </Button>
       <Spacer />
       <ConnectKitButton.Custom>
-        {({ isConnected, show, truncatedAddress, ensName }) => {
+        {({ isConnected, show, truncatedAddress, address, ensName }) => {
           return (
             <Button variant='link' onClick={show}>
               <Icon
