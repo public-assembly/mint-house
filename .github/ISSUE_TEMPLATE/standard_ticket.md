@@ -1,6 +1,6 @@
 ---
 name: Standard Ticket
-about: Create a report to help us improve the codebase
+about: Create a standard ticket for something that needs to get done
 title: 'Ticket: Short description of the feature/chore/fix'
 labels: ''
 assignees: ''
