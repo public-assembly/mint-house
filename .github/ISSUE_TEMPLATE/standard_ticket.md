@@ -15,8 +15,8 @@ Please explain the minimum viable requirements. Use a list of empty checkboxes (
 <br />
 <br />
 
-### Helpful links?
-These could be design files, peer examples, code snippets, etc.
+### Helpful links or media?
+These could be design files, peer examples, code snippets, screenshots, etc.
 
 ### Related issues?
 Does this block or contribute to any existing issues? 
