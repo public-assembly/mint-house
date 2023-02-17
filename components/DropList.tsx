@@ -33,7 +33,7 @@ export const DropList = ({ collectionData }: CollectionDataProps) => {
       {collectionData.map((drop, i) => (
         <ListItem key={i}>
           <Button variant="link">
-            <Link href={"/drops/".concat(drop.collectionAddress)}>
+            <Link href="/drops/[id]" as={`/drops/${drop.collectionAddress}`}>
               {drop.name}
             </Link>
           </Button>
