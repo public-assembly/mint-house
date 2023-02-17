@@ -1,19 +1,17 @@
 ---
 name: Bug report
-about: Create a report to help us improve the T4.FileManager.VisualStudio
+about: Create a report to help us improve the codebase
 title: 'BUG: Short description of the problem'
 labels: ''
 assignees: ''
 ---
  
 **Bug description**
-Please explain what is wrong with the T4.FileManager.
+Please explain what is wrong.
  
  
 **Your environment**
-Version of T4.FileManager:
-Version of .Net: 
-Version of Visual Studio:
+Browser:
 Operating System: 
  
  
