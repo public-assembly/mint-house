@@ -6,12 +6,17 @@ labels: ''
 assignees: ''
 ---
  
-**Acceptance Criteria**
-Please explain the minimum viable requirements.
+## Acceptance Criteria
+Please explain the minimum viable requirements. Use a list of checkboxes if you like:
+- [x] As a user I must be able too...
+- [ ] As a developer I must be able too...
+- [ ] As a tester I must be able too...
  
- 
-**Helpful links?**
+<br />
+<br />
+
+### Helpful links?
 These could be design files, peer examples, code snippets, etc.
 
-**Related issues?**
+### Related issues?
 Does this block or contribute to any existing issues? 
