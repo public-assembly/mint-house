@@ -37,12 +37,14 @@ const DropInfoBox = (props: Props) => {
           <ListItem>0.001 ETH</ListItem>
           <ListItem>15 minted</ListItem>
           <ListItem>
-            <Countdown
-              date={'2023-02-28T10:00:00'}
-              intervalDelay={1000}
-              precision={0}
-              renderer={countdownRenderer}
-            />
+            <div>
+              <Countdown
+                date={'2023-02-28T10:00:00'}
+                intervalDelay={1000}
+                precision={0}
+                renderer={countdownRenderer}
+              />
+            </div>
           </ListItem>
         </List>
         <HStack
