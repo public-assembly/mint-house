@@ -12,15 +12,8 @@ import { WalletStatus } from '../components/icons/WalletStatus';
 import React from 'react';
 import { ConnectKitButton } from 'connectkit';
 import { FaEthereum } from 'react-icons/fa';
-import Countdown from 'react-countdown';
-
+import { CountdownTimer } from './CountdownTimer';
 type Props = {};
-
-const countdownRenderer = ({ days, hours, minutes, seconds }) => {
-  return (
-    <div>{`${days}d ` + `${hours}h ` + `${minutes}m ` + `${seconds}s`}</div>
-  );
-};
 
 const DropInfoBox = (props: Props) => {
   return (
@@ -36,15 +29,8 @@ const DropInfoBox = (props: Props) => {
           <ListItem>Creator: 0x15...c170</ListItem>
           <ListItem>0.001 ETH</ListItem>
           <ListItem>15 minted</ListItem>
-          <ListItem>
-            <div>
-              <Countdown
-                date={'2023-02-28T10:00:00'}
-                intervalDelay={1000}
-                precision={0}
-                renderer={countdownRenderer}
-              />
-            </div>
+          <ListItem as='div'>
+            <CountdownTimer />
           </ListItem>
         </List>
         <HStack
