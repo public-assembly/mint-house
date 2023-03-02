@@ -1,4 +1,7 @@
 //@ts-ignore
+// import { Image } from '@chakra-ui/react';
+import { Image as NextImage } from 'next/image';
+import { Image } from '@chakra-ui/react';
 import { useNFTContent } from '@zoralabs/nft-hooks';
 import Fallback from '../public/fallback_media.webp';
 
@@ -43,7 +46,13 @@ const DropMedia = ({ uri, mimeType }: DropMediaProps) => {
       }
       if (content.mimeType.startsWith('image')) {
         return (
-          <img src={content ? content.uri : Fallback} alt='drop content' />
+          <>
+            {content ? (
+              <Image src={content.uri} alt='drop content' />
+            ) : (
+              <NextImage src={Fallback} alt='drop content' />
+            )}
+          </>
         );
       }
       return <div>unknown: {content.mimeType}</div>;
