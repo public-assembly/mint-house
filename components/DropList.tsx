@@ -1,11 +1,15 @@
 import React from 'react';
-import { marketData } from '../data';
-import Link from 'next/link';
-import { Button, List, ListItem } from '@chakra-ui/react';
 
-type Props = {};
+import NextLink from 'next/link';
 
-export const DropList = (props: Props) => {
+import { Button, Link, List, ListItem } from '@chakra-ui/react';
+import { Drops } from '@/types';
+
+type DropListProps = {
+  drops: Drops;
+};
+
+export const DropList = ({ drops }: DropListProps) => {
   return (
     <List
       spacing={[4, 6, 8, 10]}
@@ -18,7 +22,7 @@ export const DropList = (props: Props) => {
         '2px 2px 5px #0000008A',
         '2px 2px 5px #0000008A',
       ]}
-      maxH='100%'
+      maxH='82vh'
       overflowY='auto'
       sx={{
         '::-webkit-scrollbar': {
@@ -32,37 +36,19 @@ export const DropList = (props: Props) => {
         },
       }}
     >
-      {marketData.nodes.map((collection, i) => (
-        <ListItem key={i}>
-          <Button variant='link'>
-            <Link
-              href={'/drops/'.concat(`${collection.token.collectionAddress}`)}
-            >
-              {collection.token.name}
-            </Link>
-          </Button>
-        </ListItem>
-      ))}
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
-      <ListItem>test</ListItem>
+      {drops &&
+        drops.tokens.nodes.map((drop, i) => (
+          <ListItem key={i}>
+            <Button variant='link'>
+              <Link
+                as={NextLink}
+                href={`/${drop.token.collectionAddress}/${drop.token.tokenId}`}
+              >
+                {drop.token.name}
+              </Link>
+            </Button>
+          </ListItem>
+        ))}
     </List>
   );
 };
