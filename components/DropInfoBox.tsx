@@ -7,6 +7,7 @@ import {
   HStack,
   Spinner,
   VStack,
+  Spacer,
 } from '@chakra-ui/react';
 import { WalletStatus } from '../components/icons/WalletStatus';
 import { ConnectKitButton } from 'connectkit';
@@ -17,16 +18,14 @@ import { useQuery } from 'urql';
 import { getCurationIndex } from '@/data/queries';
 import _ from 'lodash';
 
-type DropInfoProps = {
-  metadata: any;
-};
-
-const DropInfoBox = ({ metadata }: DropInfoProps) => {
-  const { contractAddress, id } = useRouter().query;
+const DropInfoBox = () => {
+  const { contractAddress, tokenId } = useRouter().query;
   const { data: tokenData, error: tokenError } = useNFT(
     contractAddress as string,
-    id as string
+    tokenId as string
   );
+
+  console.log('token', tokenData);
 
   const [result, reexecuteQuery] = useQuery({
     query: getCurationIndex,
@@ -40,10 +39,10 @@ const DropInfoBox = ({ metadata }: DropInfoProps) => {
       <VStack
         border='1px solid black'
         p={['2rem !important']}
-        w={['min-content', 'min-content', '60%', '40%']}
+        maxW={['min-content', 'min-content', '60%', '40%']}
         boxShadow='2px 2px 5px #0000008A'
         mt='3rem'
-        justifyContent='center'
+        justifyContent='space-around'
         alignItems='center'
       >
         {tokenData ? (
@@ -69,10 +68,11 @@ const DropInfoBox = ({ metadata }: DropInfoProps) => {
         ) : (
           <Spinner size='xl' mb='8' />
         )}
+
         <HStack
           justifyContent='center'
           alignItems='center'
-          mt={['3', '5', '7', '9']}
+          pt={['0', '4', '6', '8']}
         >
           <ConnectKitButton.Custom>
             {({ isConnected, show, truncatedAddress, ensName }) => {
