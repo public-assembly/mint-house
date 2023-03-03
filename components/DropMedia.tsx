@@ -29,7 +29,7 @@ const DropMedia = () => {
     if (_.get(data, 'nft.tokenUrlMimeType').startsWith('video')) {
       return (
         <video
-          src={data.metadata?.contentUri}
+          src={data.content?.large?.uri}
           style={{
             height: '100vh',
 
