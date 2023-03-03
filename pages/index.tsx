@@ -29,7 +29,7 @@ export default function Home() {
           spacing='4'
         >
           <Spinner size='xl' />
-          <Text>LOADING...</Text>
+          <Text>LOADING ...</Text>
         </VStack>
       )}
     </Box>
