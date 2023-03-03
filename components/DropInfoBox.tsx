@@ -25,8 +25,6 @@ const DropInfoBox = () => {
     tokenId as string
   );
 
-  console.log('token', tokenData);
-
   const [result, reexecuteQuery] = useQuery({
     query: getCurationIndex,
   });
