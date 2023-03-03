@@ -19,7 +19,7 @@ const DropMedia = () => {
   }
   if (data) {
     if (_.get(data, 'nft.tokenUrlMimeType') === 'text') {
-      return <div>{data.content?.large?.uri}</div>;
+      return <div>{data.nft?.contentURI}</div>;
     }
     //@ts-ignore
     if (_.get(data, 'nft.tokenUrlMimeType').startsWith('audio')) {
@@ -29,7 +29,7 @@ const DropMedia = () => {
     if (_.get(data, 'nft.tokenUrlMimeType').startsWith('video')) {
       return (
         <video
-          src={data.metadata?.contentUri}
+          src={data.media?.large?.uri}
           style={{
             height: '100vh',
 
