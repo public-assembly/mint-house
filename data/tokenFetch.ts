@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 export type NFTProps = {
   contractAddress: string;
-  id: string;
+  tokenId: string;
 };
 
 export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
@@ -15,18 +15,19 @@ export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
 
 export async function tokenFetch({ params }: NFTParamsProps) {
   const contractAddress = params ? params.contractAddress : undefined;
-  const id = params ? params.id : undefined;
+  const tokenId = params ? params.tokenId : undefined;
 
-  if (!contractAddress || !id) return false;
+  if (!contractAddress || !tokenId) return false;
 
   try {
     const nft = prepareJson(
-      await urqlClientZora
-        .query(getTokenData, { address: contractAddress, tokenId: id })
-        .toPromise()
+      await urqlClientZora.query(getTokenData, { tokenId: tokenId }).toPromise()
     );
 
-    if (nft && _.get(nft, 'data.tokens.nodes[0]') === undefined) {
+    if (
+      contractAddress !== process.env.NEXT_PUBLIC_PRESS_ADDRESS ||
+      (nft && _.get(nft, 'data.tokens.nodes[0]') === undefined)
+    ) {
       return {
         notFound: true,
       };
@@ -35,19 +36,19 @@ export async function tokenFetch({ params }: NFTParamsProps) {
     return {
       props: {
         contractAddress: contractAddress,
-        id: id,
+        id: tokenId,
       },
     };
   } catch (err) {
     console.log(
-      `NFTService error! tokenAddress=${contractAddress} tokenId=${id}: ${err}`
+      `NFTService error! tokenAddress=${contractAddress} tokenId=${tokenId}: ${err}`
     );
   }
 
   return {
     props: {
       contractAddress: contractAddress,
-      id: id,
+      id: tokenId,
     },
   };
 }

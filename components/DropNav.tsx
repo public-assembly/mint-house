@@ -5,16 +5,15 @@ import React from 'react';
 import { useQuery } from 'urql';
 import NextLink from 'next/link';
 import { Drops } from '@/types';
+import { useRouter } from 'next/router';
 
-type DropNavProps = {
-  contractAddress: string | string[] | undefined;
-  tokenId: number;
-};
-
-const DropNav = ({ contractAddress, tokenId }: DropNavProps) => {
+const DropNav = () => {
+  const { contractAddress, tokenId } = useRouter().query;
+  const tokenNumber = Number(tokenId);
   const [result, reexecuteQuery] = useQuery({
     query: getCurationIndex,
   });
+
   const { data, fetching, error } = result;
 
   const drops: Drops = data;
@@ -22,20 +21,20 @@ const DropNav = ({ contractAddress, tokenId }: DropNavProps) => {
   const totalSupply = _.get(drops, 'tokens.nodes.length');
 
   const getNext = () => {
-    if (totalSupply && tokenId && tokenId < totalSupply) {
-      return tokenId + 1;
+    if (totalSupply && tokenId && tokenNumber < totalSupply) {
+      return tokenNumber + 1;
     }
   };
 
   const getPrev = () => {
-    if (tokenId && tokenId > 1) {
-      return tokenId - 1;
+    if (tokenId && tokenNumber > 1) {
+      return tokenNumber - 1;
     }
   };
 
   return (
     <HStack minW='100%' justifyContent={'space-between'}>
-      {tokenId > 1 ? (
+      {tokenNumber > 1 ? (
         <Button variant='link'>
           <Link as={NextLink} href={`/${contractAddress}/${getPrev()}`}>
             ← ◯ prev
@@ -46,7 +45,7 @@ const DropNav = ({ contractAddress, tokenId }: DropNavProps) => {
           ← ◯ prev
         </Button>
       )}
-      {totalSupply && tokenId < totalSupply ? (
+      {totalSupply && tokenNumber < totalSupply ? (
         <Button variant='link'>
           <Link as={NextLink} href={`/${contractAddress}/${getNext()}`}>
             next ◯ →

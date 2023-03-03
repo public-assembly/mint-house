@@ -1,8 +1,10 @@
-export const getCurationIndex = `query PreviewTokens {
+const pressAddress = process.env.NEXT_PUBLIC_PRESS_ADDRESS;
+
+export const getCurationIndex = `query {
   tokens(networks: [{network: ETHEREUM, chain: MAINNET}],
     pagination: {limit: 500},
     sort: {sortKey: MINTED, sortDirection: ASC}, 
-    where: {collectionAddresses: ["0xb16ced7c8ef6c9109b932d9eac7ccfbf6e5c3b6d"]}) 
+    where: {collectionAddresses: ["${pressAddress}"]}) 
   {
     nodes {
       token {
@@ -17,11 +19,11 @@ export const getCurationIndex = `query PreviewTokens {
 }
 `;
 
-export const getTokenData = `query ($tokenId: String!, $address: String!) {
+export const getTokenData = `query ($tokenId: String!) {
   tokens(networks: [{network: ETHEREUM, chain: MAINNET}],
     pagination: {limit: 500},
     sort: {sortKey: MINTED, sortDirection: ASC}, 
-    where: {tokens: {address: $address, tokenId: $tokenId}}) 
+    where: {tokens: {address: "${pressAddress}", tokenId: $tokenId}}) 
   {
     nodes {
       token {
@@ -36,10 +38,10 @@ export const getTokenData = `query ($tokenId: String!, $address: String!) {
 }
 `;
 
-export const getTotalSupply = `query CollectionInfo {
-  collections(networks: [{network: ETHEREUM, chain: MAINNET}], 
-              pagination: {limit: 1}, 
-              where: {collectionAddresses: "0xc729Ce9bF1030fbb639849a96fA8BBD013680B64"}) 
+export const getTotalSupply = `query {
+  collections(networks: [{network: ETHEREUM, chain: MAINNET}],
+              pagination: {limit: 1},
+              where: {collectionAddresses: "${pressAddress}"})
   {
     nodes {
       totalSupply
