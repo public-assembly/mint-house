@@ -1,5 +1,12 @@
 import { DropList } from '@/components/DropList';
-import { Box, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  ScaleFade,
+  Spinner,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useQuery } from 'urql';
 import { getCurationIndex } from '@/data/queries';
 import { useRouter } from 'next/router';
@@ -19,7 +26,9 @@ export default function Home() {
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>
       {!fetching && !error ? (
-        <DropList drops={data} />
+        <ScaleFade key={router.route} initialScale={0.1} in={true}>
+          <DropList drops={data} />
+        </ScaleFade>
       ) : (
         <VStack
           position='absolute'
