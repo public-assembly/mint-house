@@ -1,14 +1,16 @@
 import type { AppProps } from 'next/app';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, ScaleFade, Slide } from '@chakra-ui/react';
 import theme from '@/theme';
 import Fonts from '../theme/Fonts';
 import Layout from '@/components/Layout';
 import Head from 'next/head';
 import { WagmiConfig } from 'wagmi';
 import { ConnectKitProvider } from 'connectkit';
-import client from '../utils/client';
+import walletClient from '@/utils/walletClient';
+import { Provider as UrqlProvider } from 'urql';
+import { urqlClientZora } from '../utils/zoraClient';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <Head>
@@ -18,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <ChakraProvider theme={theme}>
-        <WagmiConfig client={client}>
+        <WagmiConfig client={walletClient}>
           <ConnectKitProvider
             mode='light'
             theme='minimal'
@@ -27,10 +29,12 @@ export default function App({ Component, pageProps }: AppProps) {
               '--ck-accent-text-color': '#000000',
             }}
           >
-            <Fonts />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <UrqlProvider value={urqlClientZora}>
+              <Fonts />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </UrqlProvider>
           </ConnectKitProvider>
         </WagmiConfig>
       </ChakraProvider>
