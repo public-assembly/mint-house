@@ -2,8 +2,10 @@ import { DropList } from '@/components/DropList';
 import { Box, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useQuery } from 'urql';
 import { getCurationIndex } from '@/data/queries';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
   const [result, reexecuteQuery] = useQuery({
     query: getCurationIndex,
   });
@@ -11,12 +13,12 @@ export default function Home() {
   const { data, fetching, error } = result;
 
   if (error) {
-    console.log('ERROR:', error);
+    router.push('/500');
   }
 
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>
-      {!fetching ? (
+      {!fetching && !error ? (
         <DropList drops={data} />
       ) : (
         <VStack
@@ -30,7 +32,6 @@ export default function Home() {
           <Text>LOADING...</Text>
         </VStack>
       )}
-      {error && 'Something went wrong... please refresh the page.'}
     </Box>
   );
 }
