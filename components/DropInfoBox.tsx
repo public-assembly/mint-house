@@ -44,6 +44,8 @@ const DropInfoBox = () => {
               <Link
                 as={NextLink}
                 href={zoraHref(_.get(tokenData, 'nft.contract.address'))}
+                target='_blank'
+                passHref
               >
                 {_.get(tokenData, 'nft.contract.name')} - {`#`}
                 {_.get(tokenData, 'nft.tokenId')} ⇗
@@ -55,6 +57,8 @@ const DropInfoBox = () => {
               <Link
                 as={NextLink}
                 href={etherscanHref(_.get(tokenData, 'nft.contract.address'))}
+                target='_blank'
+                passHref
               >
                 {formatAddress(_.get(tokenData, 'nft.contract.address'))} ⇗
               </Link>
