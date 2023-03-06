@@ -46,7 +46,9 @@ const MintButton = ({ publicSalePrice }: MintButtonProps) => {
           +
         </Button>
       </HStack>
-      <Button onClick={mint}>{isLoading ? 'minting...' : 'mint now'}</Button>
+      <Button variant='ghost' onClick={mint}>
+        {isLoading ? 'minting...' : 'mint now'}
+      </Button>
     </VStack>
   );
 };
