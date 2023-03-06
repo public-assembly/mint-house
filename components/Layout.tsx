@@ -12,7 +12,7 @@ export default function Layout({ children }: any) {
         justifyContent='center'
         alignItems='center'
         h='100vh'
-        minH={'828px'}
+        minH={'1024px'}
       >
         <Container
           centerContent

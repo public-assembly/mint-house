@@ -5,6 +5,7 @@ const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 
 const walletClient = createClient(
   getDefaultClient({
+    autoConnect: false,
     appName: 'PA mint house',
     alchemyId,
   })

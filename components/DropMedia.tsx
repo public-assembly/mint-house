@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import _ from 'lodash';
 
 const DropMedia = () => {
-  const { contractAddress, tokenId } = useRouter().query;
-  const { data, error } = useNFT(contractAddress as string, tokenId as string);
+  const { contract, token } = useRouter().query;
+  const { data, error } = useNFT(contract as string, token as string);
 
   if (error) {
     return <div>Error fetching content</div>;
@@ -29,10 +29,10 @@ const DropMedia = () => {
     if (_.get(data, 'nft.tokenUrlMimeType').startsWith('video')) {
       return (
         <video
-          src={data.metadata?.contentUri}
+          src={data.content?.large?.uri}
           style={{
-            height: '100vh',
-
+            height: '96vh',
+            aspectRatio: 16 / 9,
             objectFit: 'cover',
           }}
           loop
