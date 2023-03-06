@@ -10,7 +10,7 @@ import DropMedia from '@/components/DropMedia';
 
 const MintPage = () => {
   return (
-    <VStack h='100%' spacing={'3%'}>
+    <VStack h='100%' spacing={['5rem', '1rem', null, null]}>
       <DropMediaFrame>
         <DropMedia />
       </DropMediaFrame>

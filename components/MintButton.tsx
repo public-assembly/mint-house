@@ -3,22 +3,16 @@ import { Button, HStack, Text, VStack } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const MintButton = () => {
+type MintButtonProps = {
+  publicSalePrice: number;
+};
+const MintButton = ({ publicSalePrice }: MintButtonProps) => {
   const [mintAmount, setMintAmount] = useState('1');
-  const { token, contract } = useRouter().query;
-  const contractAddress = contract as `0x${string}`;
 
-  const { data: tokenData, error: tokenError } = useNFT(
-    contract as string,
-    token as string
-  );
-
-  const publicSalePrice = _.get(
-    tokenData,
-    'rawData.APIIndexer.mintInfo.price.nativePrice.raw'
-  );
+  const contractAddress = process.env
+    .NEXT_PUBLIC_PRESS_ADDRESS as `0x${string}`;
 
   const { data, isLoading, isSuccess, mint } = useZoraMint({
     mintAmount,
@@ -52,7 +46,7 @@ const MintButton = () => {
           +
         </Button>
       </HStack>
-      <Button onClick={mint}>mint now</Button>
+      <Button onClick={mint}>{isLoading ? 'minting...' : 'mint now'}</Button>
     </VStack>
   );
 };

@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>
       {!fetching && !error ? (
-        <ScaleFade key={router.route} initialScale={0.1} in={true}>
+        <ScaleFade key={router.route} initialScale={0.7} in={true}>
           <DropList drops={data} />
         </ScaleFade>
       ) : (

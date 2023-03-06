@@ -3,8 +3,10 @@ import React from 'react';
 import { useAccount } from 'wagmi';
 import ConnectButton from './ConnectButton';
 import MintButton from './MintButton';
-
-const MintHandler = () => {
+type MintHandlerProps = {
+  publicSalePrice: number;
+};
+const MintHandler = ({ publicSalePrice }: MintHandlerProps) => {
   const { isConnected } = useAccount();
 
   return (
@@ -13,7 +15,11 @@ const MintHandler = () => {
       alignItems='center'
       pt={['0', '4', '6', '8']}
     >
-      {isConnected ? <ConnectButton /> : <MintButton />}
+      {!isConnected ? (
+        <ConnectButton />
+      ) : (
+        <MintButton publicSalePrice={publicSalePrice} />
+      )}
     </HStack>
   );
 };

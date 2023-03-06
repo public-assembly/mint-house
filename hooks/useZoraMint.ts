@@ -41,7 +41,7 @@ const useZoraMint = ({
     args: [mintAmount],
     enabled: !!contractAddress && !!mintAmount,
     overrides: {
-      value: BigNumber.from(publicSalePrice).mul(
+      value: BigNumber.from(publicSalePrice || 0).mul(
         BigNumber.from(mintAmount || '0').toNumber()
       ),
     },
