@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useQuery } from 'urql';
-import { getCurationIndex } from '@/data/queries';
+import { getCurationIndex } from '@/utils/gql/queries/queries';
 import { useRouter } from 'next/router';
 
 export default function Home() {

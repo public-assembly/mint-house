@@ -1,33 +1,23 @@
-import {
-  Button,
-  List,
-  ListItem,
-  Icon,
-  Text,
-  HStack,
-  Spinner,
-  VStack,
-  Spacer,
-} from '@chakra-ui/react';
-import { WalletStatus } from '../components/icons/WalletStatus';
-import { ConnectKitButton } from 'connectkit';
-import { FaEthereum } from 'react-icons/fa';
+import { List, ListItem, Spinner, VStack } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import { useRouter } from 'next/router';
 import { useQuery } from 'urql';
-import { getCurationIndex } from '@/data/queries';
+import { getCurationIndex } from '@/utils/gql/queries/queries';
 import _ from 'lodash';
+import MintHandler from './MintHandler';
 
 const DropInfoBox = () => {
-  const { contractAddress, tokenId } = useRouter().query;
+  const { token, contract } = useRouter().query;
+
   const { data: tokenData, error: tokenError } = useNFT(
-    contractAddress as string,
-    tokenId as string
+    contract as string,
+    token as string
   );
 
   const [result, reexecuteQuery] = useQuery({
     query: getCurationIndex,
   });
+
   const { data: indexData, fetching, error: indexError } = result;
 
   const totalSupply = _.get(indexData, 'tokens.nodes.length');
@@ -66,40 +56,7 @@ const DropInfoBox = () => {
         ) : (
           <Spinner size='xl' mb='8' />
         )}
-
-        <HStack
-          justifyContent='center'
-          alignItems='center'
-          pt={['0', '4', '6', '8']}
-        >
-          <ConnectKitButton.Custom>
-            {({ isConnected, show, truncatedAddress, ensName }) => {
-              return (
-                <>
-                  <Button
-                    variant={isConnected ? 'outline' : 'link'}
-                    onClick={show}
-                  >
-                    {isConnected ? (
-                      <Text>
-                        <Icon as={FaEthereum} mr='2' />
-                        0.001&nbsp;
-                      </Text>
-                    ) : (
-                      <Icon
-                        as={WalletStatus}
-                        color={isConnected ? 'green' : 'grey'}
-                        mr='2'
-                      />
-                    )}
-
-                    {isConnected ? '- mint now' : 'connect to mint'}
-                  </Button>
-                </>
-              );
-            }}
-          </ConnectKitButton.Custom>
-        </HStack>
+        <MintHandler />
       </VStack>
     </>
   );
