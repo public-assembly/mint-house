@@ -31,7 +31,6 @@ const MintPage = ({ curatedAddress }: NFTProps) => {
   });
 
   const { data, fetching, error } = result;
-  console.log('fetch', fetching);
 
   if (error) {
     router.push('/500');
@@ -83,8 +82,6 @@ const MintPage = ({ curatedAddress }: NFTProps) => {
           alignItems='center'
           w='auto'
           h='600px'
-          // filter='auto'
-          // blur={isOpen || fetching ? 'none' : '3px'}
           onMouseEnter={onOpen}
           onMouseLeave={onClose}
           onClick={goToDetail}

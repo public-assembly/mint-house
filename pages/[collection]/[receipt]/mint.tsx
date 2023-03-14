@@ -10,7 +10,6 @@ import DropMedia from '@/components/DropMedia';
 import { useRouter } from 'next/router';
 
 const MintPage = ({ collection, receipt, curatedAddress }: NFTProps) => {
-  console.log('props', collection, receipt, curatedAddress);
   const router = useRouter();
   return (
     <HStack

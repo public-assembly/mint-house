@@ -22,7 +22,6 @@ export default function Home() {
   const { data, fetching, error } = result;
 
   const totalSupply = _.get(data, 'tokens.nodes.length');
-  console.log(totalSupply);
 
   if (data) {
     router.push(`/${process.env.NEXT_PUBLIC_PRESS_ADDRESS}/${totalSupply}`);

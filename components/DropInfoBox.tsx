@@ -34,7 +34,6 @@ const DropInfoBox = ({ curatedAddress }: NFTProps) => {
     tokenData,
     'rawData.APIIndexer.mintInfo.price.nativePrice.raw'
   );
-  console.log(tokenData);
 
   return (
     <VStack

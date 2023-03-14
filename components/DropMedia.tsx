@@ -8,7 +8,6 @@ import { NFTProps } from '@/utils/tokenFetch';
 
 const DropMedia = ({ curatedAddress }: NFTProps) => {
   const { data, error } = useNFT(curatedAddress as string, '1');
-  console.log('DAATTTT', data);
 
   if (error) {
     return <div>Error fetching content!</div>;
