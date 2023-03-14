@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Button, HStack, Spacer, Icon } from '@chakra-ui/react';
 import { ConnectKitButton } from 'connectkit';
-import { WalletStatus } from './icons/WalletStatus';
+import { WalletStatus } from '../assets/icons/WalletStatus';
 
 const NavBar = () => {
   return (

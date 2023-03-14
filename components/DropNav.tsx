@@ -1,4 +1,4 @@
-import { getCurationIndex } from '@/data/queries';
+import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
 import { Button, HStack, Link } from '@chakra-ui/react';
 import _ from 'lodash';
 import React from 'react';
@@ -8,10 +8,10 @@ import { Drops } from '@/types';
 import { useRouter } from 'next/router';
 
 const DropNav = () => {
-  const { contractAddress, tokenId } = useRouter().query;
-  const tokenNumber = Number(tokenId);
+  const { contract, token } = useRouter().query;
+  const tokenNumber = Number(token);
   const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndex,
+    query: getCurationIndexGoerli,
   });
 
   const { data, fetching, error } = result;
@@ -21,13 +21,13 @@ const DropNav = () => {
   const totalSupply = _.get(drops, 'tokens.nodes.length');
 
   const getNext = () => {
-    if (totalSupply && tokenId && tokenNumber < totalSupply) {
+    if (totalSupply && token && tokenNumber < totalSupply) {
       return tokenNumber + 1;
     }
   };
 
   const getPrev = () => {
-    if (tokenId && tokenNumber > 1) {
+    if (token && tokenNumber > 1) {
       return tokenNumber - 1;
     }
   };
@@ -36,7 +36,7 @@ const DropNav = () => {
     <HStack minW='100%' justifyContent={'space-between'}>
       {tokenNumber > 1 ? (
         <Button variant='link'>
-          <Link as={NextLink} href={`/${contractAddress}/${getPrev()}`}>
+          <Link as={NextLink} href={`/${contract}/${getPrev()}`}>
             ← ◯ prev
           </Link>
         </Button>
@@ -47,7 +47,7 @@ const DropNav = () => {
       )}
       {totalSupply && tokenNumber < totalSupply ? (
         <Button variant='link'>
-          <Link as={NextLink} href={`/${contractAddress}/${getNext()}`}>
+          <Link as={NextLink} href={`/${contract}/${getNext()}`}>
             next ◯ →
           </Link>
         </Button>

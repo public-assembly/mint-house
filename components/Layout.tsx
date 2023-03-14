@@ -11,8 +11,7 @@ export default function Layout({ children }: any) {
         flexDirection='column'
         justifyContent='center'
         alignItems='center'
-        h='100vh'
-        minH={'828px'}
+        minH={'1000px'}
       >
         <Container
           centerContent
@@ -22,7 +21,13 @@ export default function Layout({ children }: any) {
           alignSelf={'stretch'}
         >
           <NavBar />
-          <Box h={'80vh'} w='100%'>
+          <Box
+            h={'80vh'}
+            w='100%'
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+          >
             {children}
           </Box>
         </Container>
