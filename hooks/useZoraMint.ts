@@ -66,7 +66,7 @@ const useZoraMint = ({
     onError: (error: any) => {
       if (error.name === 'UserRejectedRequestError') {
         toast.error({
-          title: 'Signature rejected!',
+          title: 'Transaction rejected!',
           description: 'Please accept the transaction in your wallet.',
         });
       } else {
