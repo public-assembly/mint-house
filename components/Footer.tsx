@@ -1,16 +1,24 @@
 import React from 'react';
 import Image from 'next/image';
-import { HStack } from '@chakra-ui/react';
+import { HStack, Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 const Footer = () => {
   return (
     <HStack justifyContent={'center'} alignItems='center' mb='2rem'>
-      <Image
-        src={'/pa-footer-white-logo.svg'}
-        width={50}
-        height={50}
-        alt='public assembly logo'
-      />
+      <Link
+        as={NextLink}
+        href='https://public---assembly.com/'
+        target='_blank'
+        passHref
+      >
+        <Image
+          src={'/pa-footer-white-logo.svg'}
+          width={50}
+          height={50}
+          alt='public assembly logo'
+        />
+      </Link>
     </HStack>
   );
 };

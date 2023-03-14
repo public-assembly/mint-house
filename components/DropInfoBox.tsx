@@ -1,109 +1,90 @@
 import {
-  Button,
+  Box,
+  HStack,
+  Link,
   List,
   ListItem,
-  Icon,
-  Text,
-  HStack,
   Spinner,
   VStack,
-  Spacer,
 } from '@chakra-ui/react';
-import { WalletStatus } from '../components/icons/WalletStatus';
-import { ConnectKitButton } from 'connectkit';
-import { FaEthereum } from 'react-icons/fa';
+import NextLink from 'next/link';
 import { useNFT } from '@zoralabs/nft-hooks';
 import { useRouter } from 'next/router';
 import { useQuery } from 'urql';
-import { getCurationIndex } from '@/data/queries';
+import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
 import _ from 'lodash';
+import MintHandler from './MintHandler';
+import { etherscanHref, formatAddress, zoraHref } from '@/utils/general';
+import { NFTProps } from '@/utils/tokenFetch';
 
-const DropInfoBox = () => {
-  const { contractAddress, tokenId } = useRouter().query;
+const DropInfoBox = ({ curatedAddress }: NFTProps) => {
   const { data: tokenData, error: tokenError } = useNFT(
-    contractAddress as string,
-    tokenId as string
+    curatedAddress as string,
+    '1'
   );
 
-  console.log('token', tokenData);
-
   const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndex,
+    query: getCurationIndexGoerli,
   });
+
   const { data: indexData, fetching, error: indexError } = result;
 
   const totalSupply = _.get(indexData, 'tokens.nodes.length');
+  const publicSalePrice = _.get(
+    tokenData,
+    'rawData.APIIndexer.mintInfo.price.nativePrice.raw'
+  );
 
   return (
-    <>
-      <VStack
-        border='1px solid black'
-        p={['2rem !important']}
-        maxW={['min-content', 'min-content', '60%', '40%']}
-        boxShadow='2px 2px 5px #0000008A'
-        mt='3rem'
-        justifyContent='space-around'
-        alignItems='center'
-      >
-        {tokenData ? (
-          <List spacing={['0', '2', '3', '4']}>
-            <ListItem>
+    <VStack
+      border='1px solid black'
+      p={['2rem !important']}
+      w='450px'
+      boxShadow='2px 2px 5px #0000008A'
+      justifyContent='space-around'
+      alignItems='center'
+    >
+      {tokenData ? (
+        <List spacing={['1', '2', '3', '4']}>
+          <ListItem textDecoration={'underline'}>
+            <Link
+              as={NextLink}
+              href={zoraHref(_.get(tokenData, 'nft.contract.address'))}
+              target='_blank'
+              passHref
+            >
               {_.get(tokenData, 'nft.contract.name')} - {`#`}
-              {_.get(tokenData, 'nft.tokenId')}
-            </ListItem>
+              {_.get(tokenData, 'nft.tokenId')} ⇗
+            </Link>
+          </ListItem>
 
-            <ListItem>
-              Contract: {_.get(tokenData, 'nft.contract.address')}
-            </ListItem>
-            <ListItem>
-              {_.get(
-                tokenData,
-                'rawData.APIIndexer.mintInfo.price.nativePrice.decimal'
-              )}{' '}
-              ETH
-            </ListItem>
-            <ListItem>{totalSupply} minted</ListItem>
-            <ListItem>{tokenData.rawData.APIIndexer.description}</ListItem>
-          </List>
-        ) : (
-          <Spinner size='xl' mb='8' />
-        )}
-
-        <HStack
-          justifyContent='center'
-          alignItems='center'
-          pt={['0', '4', '6', '8']}
-        >
-          <ConnectKitButton.Custom>
-            {({ isConnected, show, truncatedAddress, ensName }) => {
-              return (
-                <>
-                  <Button
-                    variant={isConnected ? 'outline' : 'link'}
-                    onClick={show}
-                  >
-                    {isConnected ? (
-                      <Text>
-                        <Icon as={FaEthereum} mr='2' />
-                        0.001&nbsp;
-                      </Text>
-                    ) : (
-                      <Icon
-                        as={WalletStatus}
-                        color={isConnected ? 'green' : 'grey'}
-                        mr='2'
-                      />
-                    )}
-
-                    {isConnected ? '- mint now' : 'connect to mint'}
-                  </Button>
-                </>
-              );
-            }}
-          </ConnectKitButton.Custom>
-        </HStack>
-      </VStack>
-    </>
+          <ListItem>
+            Contract:{' '}
+            <Link
+              as={NextLink}
+              href={etherscanHref(_.get(tokenData, 'nft.contract.address'))}
+              target='_blank'
+              passHref
+            >
+              {formatAddress(_.get(tokenData, 'nft.contract.address'))} ⇗
+            </Link>
+          </ListItem>
+          <ListItem>
+            {_.get(
+              tokenData,
+              'rawData.APIIndexer.mintInfo.price.nativePrice.decimal'
+            )}{' '}
+            ETH
+          </ListItem>
+          <ListItem>{totalSupply} minted</ListItem>
+          <Box borderBottom='1px solid black' pt='2' />
+          <ListItem pt='2'>{tokenData.rawData.APIIndexer.description}</ListItem>
+        </List>
+      ) : (
+        <Spinner size='xl' mb='8' p='20' />
+      )}
+      <MintHandler publicSalePrice={publicSalePrice} />
+    </VStack>
   );
 };
 

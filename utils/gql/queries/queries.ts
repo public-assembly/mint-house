@@ -19,8 +19,8 @@ export const getCurationIndex = `query {
 }
 `;
 
-export const getTokenData = `query ($tokenId: String!) {
-  tokens(networks: [{network: ETHEREUM, chain: MAINNET}],
+export const getCurationTokenData = `query ($tokenId: String!) {
+  tokens(networks: [{network: ETHEREUM, chain: GOERLI}],
     pagination: {limit: 500},
     sort: {sortKey: MINTED, sortDirection: ASC}, 
     where: {tokens: {address: "${pressAddress}", tokenId: $tokenId}}) 
@@ -48,3 +48,22 @@ export const getTotalSupply = `query {
     }
   }
 }`;
+
+export const getCurationIndexGoerli = `query {
+  tokens(networks: [{network: ETHEREUM, chain: GOERLI}],
+    pagination: {limit: 500},
+    sort: {sortKey: MINTED, sortDirection: ASC}, 
+    where: {collectionAddresses: ["${pressAddress}"]}) 
+  {
+    nodes {
+      token {
+        collectionAddress
+        tokenId
+        name
+        tokenUrl
+        metadata
+      }
+    }
+  }
+}
+`;

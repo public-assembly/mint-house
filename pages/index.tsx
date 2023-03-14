@@ -1,37 +1,48 @@
 import { DropList } from '@/components/DropList';
-import { Box, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  ScaleFade,
+  Spinner,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useQuery } from 'urql';
-import { getCurationIndex } from '@/data/queries';
+import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
 import { useRouter } from 'next/router';
+import { tokenFetch } from '@/utils/tokenFetch';
+import _ from 'lodash';
 
 export default function Home() {
   const router = useRouter();
   const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndex,
+    query: getCurationIndexGoerli,
   });
 
   const { data, fetching, error } = result;
 
-  if (error) {
+  const totalSupply = _.get(data, 'tokens.nodes.length');
+
+  if (data && totalSupply !== 0) {
+    router.push(`/${process.env.NEXT_PUBLIC_PRESS_ADDRESS}/${totalSupply}`);
+  }
+
+  if (error || totalSupply === 0) {
     router.push('/500');
   }
 
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>
-      {!fetching && !error ? (
-        <DropList drops={data} />
-      ) : (
-        <VStack
-          position='absolute'
-          top='50%'
-          left='50%'
-          transform='translate(-50%, -50%);'
-          spacing='4'
-        >
-          <Spinner size='xl' />
-          <Text>LOADING...</Text>
-        </VStack>
-      )}
+      <VStack
+        position='absolute'
+        top='50%'
+        left='50%'
+        transform='translate(-50%, -50%);'
+        spacing='4'
+      >
+        <Spinner size='xl' />
+        <Text>LOADING ...</Text>
+      </VStack>
     </Box>
   );
 }

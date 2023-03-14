@@ -8,7 +8,7 @@ import { WagmiConfig } from 'wagmi';
 import { ConnectKitProvider } from 'connectkit';
 import walletClient from '@/utils/walletClient';
 import { Provider as UrqlProvider } from 'urql';
-import { urqlClientZora } from '../utils/zoraClient';
+import { urqlClientZora } from '@/utils/gql/zoraClient';
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
