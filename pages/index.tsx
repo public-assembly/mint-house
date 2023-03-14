@@ -23,11 +23,11 @@ export default function Home() {
 
   const totalSupply = _.get(data, 'tokens.nodes.length');
 
-  if (data) {
+  if (data && totalSupply !== 0) {
     router.push(`/${process.env.NEXT_PUBLIC_PRESS_ADDRESS}/${totalSupply}`);
   }
 
-  if (error) {
+  if (error || totalSupply === 0) {
     router.push('/500');
   }
 

@@ -27,9 +27,6 @@ export async function tokenFetch({ params }: NFTParamsProps) {
         .toPromise()
     );
 
-    const curatedAddress: string =
-      curationReceipt.data.tokens.nodes[0].token.metadata.properties.contract;
-
     if (
       collection !== process.env.NEXT_PUBLIC_PRESS_ADDRESS ||
       (curationReceipt &&
@@ -39,6 +36,9 @@ export async function tokenFetch({ params }: NFTParamsProps) {
         notFound: true,
       };
     }
+
+    const curatedAddress: string =
+      curationReceipt.data.tokens.nodes[0].token.metadata.properties.contract;
 
     return {
       props: {
@@ -57,7 +57,6 @@ export async function tokenFetch({ params }: NFTParamsProps) {
     props: {
       collection,
       receipt,
-      curatedAddress: null,
     },
   };
 }
