@@ -1,4 +1,4 @@
-import { getCurationIndex } from '@/utils/gql/queries/queries';
+import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
 import { Button, HStack, Link } from '@chakra-ui/react';
 import _ from 'lodash';
 import React from 'react';
@@ -11,7 +11,7 @@ const DropNav = () => {
   const { contract, token } = useRouter().query;
   const tokenNumber = Number(token);
   const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndex,
+    query: getCurationIndexGoerli,
   });
 
   const { data, fetching, error } = result;

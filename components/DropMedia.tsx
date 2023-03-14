@@ -3,15 +3,15 @@ import { Image as NextImage } from 'next/image';
 import { Image, Spinner } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import Fallback from '../public/fallback_media.webp';
-import { useRouter } from 'next/router';
 import _ from 'lodash';
+import { NFTProps } from '@/utils/tokenFetch';
 
-const DropMedia = () => {
-  const { contract, token } = useRouter().query;
-  const { data, error } = useNFT(contract as string, token as string);
+const DropMedia = ({ curatedAddress }: NFTProps) => {
+  const { data, error } = useNFT(curatedAddress as string, '1');
+  console.log('DAATTTT', data);
 
   if (error) {
-    return <div>Error fetching content</div>;
+    return <div>Error fetching content!</div>;
   }
 
   if (!error && !data) {
@@ -31,13 +31,12 @@ const DropMedia = () => {
         <video
           src={data.content?.large?.uri}
           style={{
-            height: '96vh',
+            height: '100%',
             aspectRatio: 16 / 9,
             objectFit: 'cover',
           }}
           loop
           autoPlay
-          controls
           muted
         />
       );
@@ -47,7 +46,14 @@ const DropMedia = () => {
       return (
         <>
           {data ? (
-            <Image src={_.get(data, 'media.thumbnail.uri')} alt='drop media' />
+            <Image
+              src={_.get(data, 'media.poster.uri')}
+              alt='drop media'
+              style={{
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
           ) : (
             <NextImage src={Fallback} alt='drop media' />
           )}

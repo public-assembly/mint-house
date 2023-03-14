@@ -59,6 +59,8 @@ const useZoraMint = ({
       toast.info({
         title: 'Pending mint...',
         description: 'Waiting for your mint to be confirmed.',
+        duration: null,
+        isClosable: true,
       });
     },
     onError: (error: any) => {

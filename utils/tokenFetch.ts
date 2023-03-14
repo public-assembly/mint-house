@@ -1,12 +1,13 @@
-import { getTokenData } from '@/utils/gql/queries/queries';
+import { getCurationTokenData } from '@/utils/gql/queries/queries';
 import { GetServerSideProps } from 'next';
 import { prepareJson } from '@zoralabs/nft-hooks/dist/fetcher/NextUtils';
 import { urqlClientZora } from '@/utils/gql/zoraClient';
 import _ from 'lodash';
 
 export type NFTProps = {
-  contract: string;
-  token: string;
+  collection?: string;
+  receipt?: string;
+  curatedAddress?: string;
 };
 
 export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
@@ -14,19 +15,25 @@ export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
 }
 
 export async function tokenFetch({ params }: NFTParamsProps) {
-  const contract = params ? params.contract : undefined;
-  const token = params ? params.token : undefined;
+  const collection = params ? params.collection : undefined;
+  const receipt = params ? params.receipt : undefined;
 
-  if (!contract || !token) return false;
+  if (!collection || !receipt) return false;
 
   try {
-    const nft = prepareJson(
-      await urqlClientZora.query(getTokenData, { tokenId: token }).toPromise()
+    const curationReceipt = prepareJson(
+      await urqlClientZora
+        .query(getCurationTokenData, { tokenId: receipt })
+        .toPromise()
     );
 
+    const curatedAddress: string =
+      curationReceipt.data.tokens.nodes[0].token.metadata.properties.contract;
+
     if (
-      contract !== process.env.NEXT_PUBLIC_PRESS_ADDRESS ||
-      (nft && _.get(nft, 'data.tokens.nodes[0]') === undefined)
+      collection !== process.env.NEXT_PUBLIC_PRESS_ADDRESS ||
+      (curationReceipt &&
+        _.get(curationReceipt, 'data.tokens.nodes[0]') === undefined)
     ) {
       return {
         notFound: true,
@@ -35,20 +42,22 @@ export async function tokenFetch({ params }: NFTParamsProps) {
 
     return {
       props: {
-        contract: contract,
-        id: token,
+        collection,
+        receipt,
+        curatedAddress,
       },
     };
   } catch (err) {
     console.log(
-      `NFTService error! tokenAddress=${contract} tokenId=${token}: ${err}`
+      `NFTService error! tokenAddress=${collection} tokenId=${receipt}: ${err}`
     );
   }
 
   return {
     props: {
-      contract: contract,
-      id: token,
+      collection,
+      receipt,
+      curatedAddress: null,
     },
   };
 }
