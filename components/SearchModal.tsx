@@ -48,6 +48,11 @@ type CurationSearchItem = {
   };
 };
 
+type InputValue = {
+  currentTarget: {
+    value: string;
+  };
+};
 export default function SearchModal({
   isOpen,
   onClose,
@@ -59,20 +64,20 @@ export default function SearchModal({
     query: getCurationIndexGoerli,
   });
   const { data, fetching, error } = result;
-  if (!data) return;
+  if (!data) return null;
   const fuse = new Fuse(data?.tokens?.nodes, {
     keys: ['token.metadata.name', 'token.metadata.description'],
   });
-  // console.log(fuse);
   const results = fuse.search(searchData);
   const searchResults = searchData
     ? results.map((result) => result.item)
     : data?.tokens?.nodes;
 
-  function handleSearch({ currentTarget = {} }) {
+  function handleSearch({ currentTarget }: InputValue) {
     const { value } = currentTarget;
     setSearchData(value);
   }
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -93,7 +98,7 @@ export default function SearchModal({
                 {searchResults.map((item: CurationSearchItem) => {
                   console.log(item);
                   return (
-                    <ul>
+                    <ul key={item.token.tokenId}>
                       <Link
                         href={`/${item.token.collectionAddress}/${item.token.tokenId}`}
                       >
