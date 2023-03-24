@@ -1,35 +1,20 @@
-import { DropList } from '@/components/DropList';
-import {
-  Box,
-  HStack,
-  ScaleFade,
-  Spinner,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { useQuery } from 'urql';
-import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
+import useCurationIndex from '@/hooks/useCurationIndex';
+import { Box, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { tokenFetch } from '@/utils/tokenFetch';
-import _ from 'lodash';
+import { useEffect } from 'react';
 
 export default function Home() {
   const router = useRouter();
-  const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndexGoerli,
-  });
+  const curationIndex = useCurationIndex();
+  const totalSupply = curationIndex.listed.length;
 
-  const { data, fetching, error } = result;
-
-  const totalSupply = _.get(data, 'tokens.nodes.length');
-
-  if (data && totalSupply !== 0) {
-    router.push(`/${process.env.NEXT_PUBLIC_PRESS_ADDRESS}/${totalSupply}`);
-  }
-
-  if (error || totalSupply === 0) {
-    router.push('/500');
-  }
+  useEffect(() => {
+    if (Array.isArray(curationIndex.listed) && !!totalSupply) {
+      router.push(`/${totalSupply}`);
+    } else if (!curationIndex.isFetching && totalSupply === 0) {
+      router.push('/500');
+    }
+  }, [router, totalSupply, curationIndex]);
 
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>

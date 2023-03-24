@@ -15,10 +15,9 @@ export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
 }
 
 export async function tokenFetch({ params }: NFTParamsProps) {
-  const collection = params ? params.collection : undefined;
   const receipt = params ? params.receipt : undefined;
 
-  if (!collection || !receipt) return false;
+  if (!receipt) return false;
 
   try {
     const curationReceipt = prepareJson(
@@ -28,9 +27,8 @@ export async function tokenFetch({ params }: NFTParamsProps) {
     );
 
     if (
-      collection !== process.env.NEXT_PUBLIC_PRESS_ADDRESS ||
-      (curationReceipt &&
-        _.get(curationReceipt, 'data.tokens.nodes[0]') === undefined)
+      curationReceipt &&
+      _.get(curationReceipt, 'data.tokens.nodes[0]') === undefined
     ) {
       return {
         notFound: true,
@@ -42,20 +40,16 @@ export async function tokenFetch({ params }: NFTParamsProps) {
 
     return {
       props: {
-        collection,
         receipt,
         curatedAddress,
       },
     };
   } catch (err) {
-    console.log(
-      `NFTService error! tokenAddress=${collection} tokenId=${receipt}: ${err}`
-    );
+    console.log(`NFTService error! tokenId=${receipt}: ${err}`);
   }
 
   return {
     props: {
-      collection,
       receipt,
     },
   };
