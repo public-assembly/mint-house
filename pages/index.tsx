@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     if (Array.isArray(curationIndex.listed) && !!totalSupply) {
       router.push(`/${totalSupply}`);
-    } else if (!curationIndex.isFetching && totalSupply === 0) {
+    } else if (!curationIndex.isFetching && !curationIndex.listed) {
       router.push('/500');
     }
   }, [router, totalSupply, curationIndex]);
