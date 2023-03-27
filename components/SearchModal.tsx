@@ -57,9 +57,9 @@ export default function SearchModal({
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader pb={5}>
-            <ModalCloseButton />
+        <ModalContent borderRadius='0'>
+          <ModalHeader py={4}>
+            <ModalCloseButton borderRadius='0' mt='1' />
           </ModalHeader>
           <ModalBody>
             <form id='search-form'>
