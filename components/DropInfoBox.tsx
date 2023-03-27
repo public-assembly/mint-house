@@ -1,21 +1,12 @@
-import {
-  Box,
-  HStack,
-  Link,
-  List,
-  ListItem,
-  Spinner,
-  VStack,
-} from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { useNFT } from '@zoralabs/nft-hooks';
-import { useRouter } from 'next/router';
-import { useQuery } from 'urql';
-import { getCurationIndexGoerli } from '@/utils/gql/queries/queries';
-import _ from 'lodash';
-import MintHandler from './MintHandler';
 import { etherscanHref, formatAddress, zoraHref } from '@/utils/general';
+import { getTotalSupply } from '@/utils/gql/queries/queries';
 import { NFTProps } from '@/utils/tokenFetch';
+import { Box, Link, List, ListItem, Spinner, VStack } from '@chakra-ui/react';
+import { useNFT } from '@zoralabs/nft-hooks';
+import _ from 'lodash';
+import NextLink from 'next/link';
+import { useQuery } from 'urql';
+import MintHandler from './MintHandler';
 
 const DropInfoBox = ({ curatedAddress }: NFTProps) => {
   const { data: tokenData, error: tokenError } = useNFT(
@@ -24,12 +15,16 @@ const DropInfoBox = ({ curatedAddress }: NFTProps) => {
   );
 
   const [result, reexecuteQuery] = useQuery({
-    query: getCurationIndexGoerli,
+    query: getTotalSupply,
+    variables: {
+      collectionAddress: curatedAddress,
+      chain: 'MAINNET',
+    },
   });
 
   const { data: indexData, fetching, error: indexError } = result;
 
-  const totalSupply = _.get(indexData, 'tokens.nodes.length');
+  const totalSupply = _.get(indexData, 'aggregateStat.nftCount', 0);
   const publicSalePrice = _.get(
     tokenData,
     'rawData.APIIndexer.mintInfo.price.nativePrice.raw'
@@ -39,13 +34,12 @@ const DropInfoBox = ({ curatedAddress }: NFTProps) => {
     <VStack
       border='1px solid black'
       p={['2rem !important']}
-      w='450px'
       boxShadow='2px 2px 5px #0000008A'
       justifyContent='space-around'
       alignItems='center'
     >
       {tokenData ? (
-        <List spacing={['1', '2', '3', '4']}>
+        <List>
           <ListItem textDecoration={'underline'}>
             <Link
               as={NextLink}
@@ -53,8 +47,7 @@ const DropInfoBox = ({ curatedAddress }: NFTProps) => {
               target='_blank'
               passHref
             >
-              {_.get(tokenData, 'nft.contract.name')} - {`#`}
-              {_.get(tokenData, 'nft.tokenId')} ⇗
+              {_.get(tokenData, 'nft.contract.name')}
             </Link>
           </ListItem>
 

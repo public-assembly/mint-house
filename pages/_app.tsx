@@ -1,16 +1,26 @@
-import type { AppProps } from 'next/app';
-import { ChakraProvider, ScaleFade, Slide } from '@chakra-ui/react';
-import theme from '@/theme';
-import Fonts from '../theme/Fonts';
 import Layout from '@/components/Layout';
-import Head from 'next/head';
-import { WagmiConfig } from 'wagmi';
-import { ConnectKitProvider } from 'connectkit';
-import walletClient from '@/utils/walletClient';
-import { Provider as UrqlProvider } from 'urql';
+import theme from '@/theme';
 import { urqlClientZora } from '@/utils/gql/zoraClient';
+import walletClient from '@/utils/walletClient';
+import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConnectKitProvider } from 'connectkit';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { Provider as UrqlProvider } from 'urql';
+import { WagmiConfig } from 'wagmi';
+import Fonts from '../theme/Fonts';
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchInterval: 15_000,
+      },
+    },
+  });
+
   return (
     <>
       <Head>
@@ -29,12 +39,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
               '--ck-accent-text-color': '#000000',
             }}
           >
-            <UrqlProvider value={urqlClientZora}>
-              <Fonts />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </UrqlProvider>
+            <QueryClientProvider client={queryClient}>
+              <UrqlProvider value={urqlClientZora}>
+                <Fonts />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </UrqlProvider>
+            </QueryClientProvider>
           </ConnectKitProvider>
         </WagmiConfig>
       </ChakraProvider>

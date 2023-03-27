@@ -6,11 +6,3 @@ export const etherscanHref = (address: string | undefined): string =>
 
 export const zoraHref = (address: string | undefined): string =>
   address ? `https://zora.co/collections/${address}` : '';
-
-// export const chainsMap = (chainId: { [index: number]: any }) => {
-//   const chains = {
-//     1: mainnet,
-//     5: goerli,
-//   };
-//   return chains[chainId] || mainnet;
-// };

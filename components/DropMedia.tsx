@@ -5,8 +5,10 @@ import { useNFT } from '@zoralabs/nft-hooks';
 import Fallback from '../public/fallback_media.webp';
 import _ from 'lodash';
 import { NFTProps } from '@/utils/tokenFetch';
+import { useRouter } from 'next/router';
 
 const DropMedia = ({ curatedAddress }: NFTProps) => {
+  const router = useRouter();
   const { data, error } = useNFT(curatedAddress as string, '1');
 
   if (error) {
@@ -37,6 +39,7 @@ const DropMedia = ({ curatedAddress }: NFTProps) => {
           loop
           autoPlay
           muted
+          controls={router.asPath.includes('mint')}
         />
       );
     }
