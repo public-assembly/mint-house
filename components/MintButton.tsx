@@ -1,9 +1,6 @@
 import useZoraMint from '@/hooks/useZoraMint';
 import { Button, HStack, Text, VStack } from '@chakra-ui/react';
-import { useNFT } from '@zoralabs/nft-hooks';
-import _ from 'lodash';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type MintButtonProps = {
   publicSalePrice: number;

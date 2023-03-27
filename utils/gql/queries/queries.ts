@@ -38,16 +38,15 @@ export const getCurationTokenData = `query ($tokenId: String!) {
 }
 `;
 
-export const getTotalSupply = `query {
-  collections(networks: [{network: ETHEREUM, chain: MAINNET}],
-              pagination: {limit: 1},
-              where: {collectionAddresses: "${pressAddress}"})
-  {
-    nodes {
-      totalSupply
-    }
+export const getTotalSupply = `query ($collectionAddress: [String!], $chain: Chain!) {
+  aggregateStat {
+    nftCount(
+      where: {collectionAddresses: $collectionAddress}
+      networks: {network: ETHEREUM, chain: $chain}
+    )
   }
-}`;
+}
+`;
 
 export const getCurationIndexGoerli = `query {
   tokens(networks: [{network: ETHEREUM, chain: GOERLI}],

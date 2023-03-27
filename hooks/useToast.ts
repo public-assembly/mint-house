@@ -1,7 +1,7 @@
 import {
-  useToast as useChakraToast,
-  ToastProps,
   AlertStatus,
+  ToastProps,
+  useToast as useChakraToast,
 } from '@chakra-ui/react';
 
 const ToastBase = ({
@@ -22,7 +22,6 @@ const ToastBase = ({
     isClosable: isClosable ?? true,
     position: 'top-right',
     variant: 'solid',
-    // render
   });
 };
 

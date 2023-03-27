@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 
 const Footer = () => {
   return (
-    <HStack justifyContent={'center'} alignItems='center' mb='2rem'>
+    <HStack justifyContent={'center'} alignItems='center' h='4rem'>
       <Link
         as={NextLink}
         href='https://public---assembly.com/'

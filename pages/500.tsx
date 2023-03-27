@@ -1,10 +1,19 @@
+import useCurationIndexData from '@/hooks/useCurationIndexData';
 import { Button, Link, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
-const FourOhFour = (props: Props) => {
+const FiveHundred = (props: Props) => {
+  const router = useRouter();
+  const curationIndex = useCurationIndexData();
+  // useEffect(() => {
+  //   if (curationIndex.listed !== undefined) {
+  //     router.push('/');
+  //   }
+  // }, [curationIndex, router]);
   return (
     <>
       <Head>
@@ -17,10 +26,10 @@ const FourOhFour = (props: Props) => {
         transform='translate(-50%, -50%);'
         spacing='4'
       >
-        <div>Lost in the sauce again! That page doesn&apos;t exist.</div>
+        <div>Something went wrong back there.</div>
         <Button variant={'link'}>
           <Link as={NextLink} href='/'>
-            <div>Go home?</div>
+            <div>Try again?</div>
           </Link>
         </Button>
       </VStack>
@@ -28,4 +37,4 @@ const FourOhFour = (props: Props) => {
   );
 };
 
-export default FourOhFour;
+export default FiveHundred;
