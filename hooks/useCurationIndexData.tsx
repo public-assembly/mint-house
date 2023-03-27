@@ -1,13 +1,15 @@
 import { ParsedItem } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { Alchemy, Network } from 'alchemy-sdk';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 type metadata = {
   nfts: [];
 };
 
-const useCurationIndex = (contract?: `0x${string}` | undefined) => {
+const useCurationIndexData = (contract?: `0x${string}` | undefined) => {
+  const router = useRouter();
   const pressAddress = contract
     ? contract
     : process.env.NEXT_PUBLIC_PRESS_ADDRESS;
@@ -35,21 +37,20 @@ const useCurationIndex = (contract?: `0x${string}` | undefined) => {
       parsedNFTs.push(Object.assign(nftData, receiptNo));
     }
     setParsedMetadata(parsedNFTs);
+    setCurationMetadata(metadata);
   };
 
   const getMetadata = async () => {
     const curationIndex: any = await alchemyGoerli.nft.getNftsForContract(
       pressAddress as any
     );
-    setCurationMetadata(curationIndex);
-    await parseMetadata(curationIndex);
+
     return curationIndex;
   };
 
-  const { isLoading, isFetching, isError, error, data } = useQuery<any>(
-    ['curationIndex'],
-    getMetadata
-  );
+  const { isFetching, data } = useQuery<any>(['curationIndex'], getMetadata, {
+    onSuccess: (data) => parseMetadata(data),
+  });
 
   useEffect(() => {
     data;
@@ -59,10 +60,11 @@ const useCurationIndex = (contract?: `0x${string}` | undefined) => {
   const parsed = parsedMetadata ? parsedMetadata : [];
 
   return {
+    data,
+    isFetching,
     listed,
     parsed,
-    isFetching,
   };
 };
 
-export default useCurationIndex;
+export default useCurationIndexData;

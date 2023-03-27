@@ -1,4 +1,4 @@
-import useCurationIndex from '@/hooks/useCurationIndex';
+import useCurationIndexData from '@/hooks/useCurationIndexData';
 import { ParsedItem } from '@/types';
 import {
   FormControl,
@@ -37,7 +37,7 @@ export default function SearchModal({
   onOpen,
 }: SearchModalProps) {
   const [searchData, setSearchData] = useState('');
-  const curationIndex = useCurationIndex();
+  const curationIndex = useCurationIndexData();
 
   if (!curationIndex) return null;
   const fuse = new Fuse(curationIndex?.parsed, {

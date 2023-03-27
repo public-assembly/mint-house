@@ -1,11 +1,11 @@
-import useCurationIndex from '@/hooks/useCurationIndex';
+import useCurationIndexData from '@/hooks/useCurationIndexData';
 import { Box, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function Home() {
   const router = useRouter();
-  const curationIndex = useCurationIndex();
+  const curationIndex = useCurationIndexData();
   const totalSupply = curationIndex.listed.length;
 
   useEffect(() => {

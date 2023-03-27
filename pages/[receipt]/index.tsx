@@ -1,5 +1,5 @@
 import DropMedia from '@/components/DropMedia';
-import useCurationIndex from '@/hooks/useCurationIndex';
+import useCurationIndexData from '@/hooks/useCurationIndexData';
 import { NFTProps, tokenFetch } from '@/utils/tokenFetch';
 import {
   Box,
@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 const MintPage = ({ receipt, curatedAddress }: NFTProps) => {
   const router = useRouter();
   const receiptNum = Number(receipt);
-  const curationIndex = useCurationIndex();
+  const curationIndex = useCurationIndexData();
 
   useEffect(() => {
     if (curationIndex.parsed === undefined) {

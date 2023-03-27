@@ -1,4 +1,4 @@
-import useCurationIndex from '@/hooks/useCurationIndex';
+import useCurationIndexData from '@/hooks/useCurationIndexData';
 import { Button, Link, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 import NextLink from 'next/link';
@@ -8,7 +8,7 @@ type Props = {};
 
 const FiveHundred = (props: Props) => {
   const router = useRouter();
-  const curationIndex = useCurationIndex();
+  const curationIndex = useCurationIndexData();
   // useEffect(() => {
   //   if (curationIndex.listed !== undefined) {
   //     router.push('/');
