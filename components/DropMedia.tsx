@@ -3,6 +3,7 @@ import { NFTProps } from '@/utils/tokenFetch';
 import { Image, Spinner } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import _ from 'lodash';
+//@ts-ignore
 import { Image as NextImage } from 'next/image';
 import { useRouter } from 'next/router';
 import Fallback from '../public/fallback_media.webp';
@@ -40,6 +41,7 @@ const DropMedia = ({ curatedAddress }: NFTProps) => {
           loop
           autoPlay
           muted
+          playsInline
           controls={router.asPath.includes('mint')}
         />
       );
