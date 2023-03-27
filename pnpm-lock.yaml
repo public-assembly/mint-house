@@ -25,6 +25,7 @@ specifiers:
   install: ^0.13.0
   lodash: ^4.17.21
   next: 13.1.6
+  pa-mint-house: 'link:'
   react: 18.2.0
   react-dom: 18.2.0
   react-fuzzy-highlighter: ^1.1.1
@@ -59,6 +60,7 @@ dependencies:
   install: 0.13.0
   lodash: 4.17.21
   next: 13.1.6_biqbaboplfbrettd7655fr4n2y
+  pa-mint-house: 'link:'
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-fuzzy-highlighter: 1.1.1
