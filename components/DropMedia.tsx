@@ -1,11 +1,12 @@
 //@ts-ignore
-import { Image as NextImage } from 'next/image';
+import { NFTProps } from '@/utils/tokenFetch';
 import { Image, Spinner } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
-import Fallback from '../public/fallback_media.webp';
 import _ from 'lodash';
-import { NFTProps } from '@/utils/tokenFetch';
+//@ts-ignore
+import { Image as NextImage } from 'next/image';
 import { useRouter } from 'next/router';
+import Fallback from '../public/fallback_media.webp';
 
 const DropMedia = ({ curatedAddress }: NFTProps) => {
   const router = useRouter();
@@ -30,7 +31,8 @@ const DropMedia = ({ curatedAddress }: NFTProps) => {
     if (_.get(data, 'nft.tokenUrlMimeType').startsWith('video')) {
       return (
         <video
-          src={data.content?.large?.uri}
+          src={_.get(data, 'content.large.uri')}
+          poster={_.get(data, 'media.poster.uri')}
           style={{
             height: '100%',
             aspectRatio: 16 / 9,
@@ -39,6 +41,7 @@ const DropMedia = ({ curatedAddress }: NFTProps) => {
           loop
           autoPlay
           muted
+          playsInline
           controls={router.asPath.includes('mint')}
         />
       );
