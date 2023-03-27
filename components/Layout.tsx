@@ -9,7 +9,6 @@ export default function Layout({ children }: any) {
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
-      border='1px solid green'
     >
       <Container display='flex' centerContent maxW='1768px' flexGrow='1'>
         <NavBar />
