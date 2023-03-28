@@ -1,20 +1,11 @@
-import {
-  Box,
-  HStack,
-  SlideFade,
-  Spacer,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
 import DropInfoBox from '@/components/DropInfoBox';
-import DropMediaFrame from '@/components/DropMediaFrame';
-import _ from 'lodash';
-import { NFTProps, tokenFetch } from '@/utils/tokenFetch';
 import DropMedia from '@/components/DropMedia';
+import DropMediaFrame from '@/components/DropMediaFrame';
+import { ParsedMintProps, tokenFetch } from '@/utils/tokenFetch';
+import { Box, SlideFade, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-const MintPage = ({ collection, receipt, curatedAddress }: NFTProps) => {
+const MintPage = ({ collection, receipt, curatedAddress }: ParsedMintProps) => {
   const router = useRouter();
   return (
     <Stack
