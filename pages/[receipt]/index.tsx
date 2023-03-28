@@ -1,6 +1,7 @@
 import DropMedia from '@/components/DropMedia';
 import useCurationIndexData from '@/hooks/useCurationIndexData';
-import { ParsedMintProps, tokenFetch } from '@/utils/tokenFetch';
+import { ParsedMintProps } from '@/types';
+import { tokenFetch } from '@/utils/tokenFetch';
 import {
   Box,
   Button,

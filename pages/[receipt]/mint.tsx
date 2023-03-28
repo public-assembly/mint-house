@@ -1,7 +1,8 @@
 import DropInfoBox from '@/components/DropInfoBox';
 import DropMedia from '@/components/DropMedia';
 import DropMediaFrame from '@/components/DropMediaFrame';
-import { ParsedMintProps, tokenFetch } from '@/utils/tokenFetch';
+import { ParsedMintProps } from '@/types';
+import { tokenFetch } from '@/utils/tokenFetch';
 import { Box, SlideFade, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 

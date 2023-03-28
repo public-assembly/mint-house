@@ -1,5 +1,5 @@
 //@ts-ignore
-import { ParsedMintProps } from '@/utils/tokenFetch';
+import { ParsedMintProps } from '@/types';
 import { Image, Spinner } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import _ from 'lodash';
