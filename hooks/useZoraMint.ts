@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { BigNumber } from 'ethers';
+import _ from 'lodash';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import {
-  usePrepareContractWrite,
   useContractWrite,
+  useFeeData,
+  usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi';
-import _ from 'lodash';
-import { BigNumber } from 'ethers';
 import ZoraDropABI from '../contracts/ZoraDrop.json';
 import useToast from './useToast';
 
 type MintProps = {
   mintAmount?: string;
-  contractAddress?: `0x${string}`;
+  curatedAddress?: `0x${string}`;
   publicSalePrice?: number;
 };
 
 const useZoraMint = ({
   mintAmount,
   publicSalePrice,
-  contractAddress,
+  curatedAddress,
 }: MintProps) => {
+  const router = useRouter();
   const [hash, setHash] = useState<`0x${string}`>();
-
+  const [contractError, setContractError] = useState<boolean>(false);
   const toast = useToast();
+  const { data: feeData } = useFeeData();
+
+  useEffect(() => {
+    if (router) {
+      setContractError(false);
+    }
+  }, [router]);
 
   useWaitForTransaction({
     hash,
@@ -35,22 +45,24 @@ const useZoraMint = ({
   });
 
   const { config } = usePrepareContractWrite({
-    address: contractAddress,
+    address: curatedAddress,
     abi: ZoraDropABI,
     functionName: 'purchase',
     args: [mintAmount],
-    enabled: !!contractAddress && !!mintAmount,
+    enabled: !!curatedAddress && !!mintAmount && !!feeData,
     overrides: {
       value: BigNumber.from(publicSalePrice || 0).mul(
         BigNumber.from(mintAmount || '0').toNumber()
       ),
     },
+    onError: () => setContractError(true),
   });
 
   const {
     data,
     isLoading,
     isSuccess,
+    isError,
     write: mint,
   } = useContractWrite({
     ...config,
@@ -78,7 +90,7 @@ const useZoraMint = ({
     },
   });
 
-  return { data, isLoading, isSuccess, mint };
+  return { data, isLoading, isSuccess, contractError, mint };
 };
 
 export default useZoraMint;

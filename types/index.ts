@@ -58,3 +58,9 @@ export type ParsedItem = {
     raw: string;
   };
 };
+
+export type ParsedMintProps = {
+  collection?: string;
+  receipt?: string;
+  curatedAddress?: `0x${string}`;
+};

@@ -1,12 +1,12 @@
 import { HStack } from '@chakra-ui/react';
-import React from 'react';
 import { useAccount } from 'wagmi';
 import ConnectButton from './ConnectButton';
 import MintButton from './MintButton';
 type MintHandlerProps = {
   publicSalePrice: number;
+  curatedAddress?: `0x${string}`;
 };
-const MintHandler = ({ publicSalePrice }: MintHandlerProps) => {
+const MintHandler = ({ publicSalePrice, curatedAddress }: MintHandlerProps) => {
   const { isConnected } = useAccount();
 
   return (
@@ -18,7 +18,10 @@ const MintHandler = ({ publicSalePrice }: MintHandlerProps) => {
       {!isConnected ? (
         <ConnectButton />
       ) : (
-        <MintButton publicSalePrice={publicSalePrice} />
+        <MintButton
+          publicSalePrice={publicSalePrice}
+          curatedAddress={curatedAddress}
+        />
       )}
     </HStack>
   );
