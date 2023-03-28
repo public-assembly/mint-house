@@ -1,17 +1,12 @@
+import { ParsedMintProps } from '@/types';
 import { getCurationTokenData } from '@/utils/gql/queries/queries';
-import { GetServerSideProps } from 'next';
-import { prepareJson } from '@zoralabs/nft-hooks/dist/fetcher/NextUtils';
 import { urqlClientZora } from '@/utils/gql/zoraClient';
+import { prepareJson } from '@zoralabs/nft-hooks/dist/fetcher/NextUtils';
 import _ from 'lodash';
+import { GetServerSideProps } from 'next';
 
-export type NFTProps = {
-  collection?: string;
-  receipt?: string;
-  curatedAddress?: string;
-};
-
-export interface NFTParamsProps extends GetServerSideProps<NFTProps> {
-  params: NFTProps;
+export interface NFTParamsProps extends GetServerSideProps<ParsedMintProps> {
+  params: ParsedMintProps;
 }
 
 export async function tokenFetch({ params }: NFTParamsProps) {

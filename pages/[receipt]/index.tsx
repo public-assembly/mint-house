@@ -1,6 +1,7 @@
 import DropMedia from '@/components/DropMedia';
 import useCurationIndexData from '@/hooks/useCurationIndexData';
-import { NFTProps, tokenFetch } from '@/utils/tokenFetch';
+import { ParsedMintProps } from '@/types';
+import { tokenFetch } from '@/utils/tokenFetch';
 import {
   Box,
   Button,
@@ -14,7 +15,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const MintPage = ({ receipt, curatedAddress }: NFTProps) => {
+const MintPage = ({ receipt, curatedAddress }: ParsedMintProps) => {
   const router = useRouter();
   const receiptNum = Number(receipt);
   const curationIndex = useCurationIndexData();

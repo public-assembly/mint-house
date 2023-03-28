@@ -1,5 +1,5 @@
 //@ts-ignore
-import { NFTProps } from '@/utils/tokenFetch';
+import { ParsedMintProps } from '@/types';
 import { Image, Spinner } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import _ from 'lodash';
@@ -8,7 +8,7 @@ import { Image as NextImage } from 'next/image';
 import { useRouter } from 'next/router';
 import Fallback from '../public/fallback_media.webp';
 
-const DropMedia = ({ curatedAddress }: NFTProps) => {
+const DropMedia = ({ curatedAddress }: ParsedMintProps) => {
   const router = useRouter();
   const { data, error } = useNFT(curatedAddress as string, '1');
 

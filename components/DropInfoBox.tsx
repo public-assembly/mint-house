@@ -1,6 +1,6 @@
+import { ParsedMintProps } from '@/types';
 import { etherscanHref, formatAddress, zoraHref } from '@/utils/general';
 import { getTotalSupply } from '@/utils/gql/queries/queries';
-import { NFTProps } from '@/utils/tokenFetch';
 import { Box, Link, List, ListItem, Spinner, VStack } from '@chakra-ui/react';
 import { useNFT } from '@zoralabs/nft-hooks';
 import _ from 'lodash';
@@ -8,9 +8,9 @@ import NextLink from 'next/link';
 import { useQuery } from 'urql';
 import MintHandler from './MintHandler';
 
-const DropInfoBox = ({ curatedAddress }: NFTProps) => {
+const DropInfoBox = ({ curatedAddress }: ParsedMintProps) => {
   const { data: tokenData, error: tokenError } = useNFT(
-    curatedAddress as string,
+    curatedAddress as `0x${string}`,
     '1'
   );
 
@@ -76,7 +76,10 @@ const DropInfoBox = ({ curatedAddress }: NFTProps) => {
       ) : (
         <Spinner size='xl' mb='8' p='20' />
       )}
-      <MintHandler publicSalePrice={publicSalePrice} />
+      <MintHandler
+        publicSalePrice={publicSalePrice}
+        curatedAddress={curatedAddress}
+      />
     </VStack>
   );
 };
