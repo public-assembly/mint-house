@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Button, HStack, Spacer, useDisclosure } from '@chakra-ui/react';
+import { CONFIG } from '../config';
 import SearchModal from './SearchModal';
 
 const NavBar = () => {
@@ -13,7 +14,7 @@ const NavBar = () => {
       alignItems='center'
     >
       <Button variant='link'>
-        <Link href='/'>mint house</Link>
+        <Link href='/'>{CONFIG.appName}</Link>
       </Button>
       <Spacer />
       <SearchModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />

@@ -72,22 +72,45 @@ export default function SearchModal({
                   variant='flushed'
                 />
                 <List spacing={3} py={3}>
-                  {searchResults.map((nft: ParsedItem) => {
-                    return (
-                      <ListItem key={nft.contract.deployedBlockNumber}>
-                        <Link
-                          as={NextLink}
-                          href={`/${nft.receipt}/mint`}
-                          onClick={onClose}
-                        >
-                          <Heading size='md'>{nft.contract.name}</Heading>
-                          <FormHelperText noOfLines={3}>
-                            {nft.description}
-                          </FormHelperText>
-                        </Link>
-                      </ListItem>
-                    );
-                  })}
+                  <>
+                    {searchData === ''
+                      ? searchResults
+                          .map((nft: ParsedItem) => {
+                            return (
+                              <ListItem key={nft.contract.deployedBlockNumber}>
+                                <Link
+                                  as={NextLink}
+                                  href={`/${nft.receipt}/mint`}
+                                  onClick={onClose}
+                                >
+                                  <Heading size='md'>
+                                    {nft.contract.name}
+                                  </Heading>
+                                  <FormHelperText noOfLines={3}>
+                                    {nft.description}
+                                  </FormHelperText>
+                                </Link>
+                              </ListItem>
+                            );
+                          })
+                          .reverse()
+                      : searchResults.map((nft: ParsedItem) => {
+                          return (
+                            <ListItem key={nft.contract.deployedBlockNumber}>
+                              <Link
+                                as={NextLink}
+                                href={`/${nft.receipt}/mint`}
+                                onClick={onClose}
+                              >
+                                <Heading size='md'>{nft.contract.name}</Heading>
+                                <FormHelperText noOfLines={3}>
+                                  {nft.description}
+                                </FormHelperText>
+                              </Link>
+                            </ListItem>
+                          );
+                        })}
+                  </>
                 </List>
               </FormControl>
             </form>
