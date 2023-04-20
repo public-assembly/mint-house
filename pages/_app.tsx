@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import { CONFIG } from '@/config';
 import theme from '@/theme';
 import { urqlClientZora } from '@/utils/gql/zoraClient';
 import walletClient from '@/utils/walletClient';
@@ -24,10 +25,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <Head>
-        <title>mint house</title>
-        <meta name='description' content='Welcome to PA Mint House!' />
+        <title>{CONFIG.appName}</title>
+        <meta name='description' content={CONFIG.appDescription} />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <ChakraProvider theme={theme}>
         <WagmiConfig client={walletClient}>

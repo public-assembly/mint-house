@@ -20,7 +20,7 @@ const useCurationIndexData = (contract?: `0x${string}` | undefined) => {
     network: Network.ETH_GOERLI,
   };
   const alchemy_settings_mainnet = {
-    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_MAINNET,
     network: Network.ETH_MAINNET,
   };
   const alchemyGoerli = new Alchemy(alchemy_setting_goerli);
